@@ -32,8 +32,3 @@ def setup():
     # Alle drei Farben überschneiden sich.
     fill(r_val, g_val, b_val)
     rect(350, 250, 100, 100)
-
-    # Hier zeichnen wir die Schieberegler.
-    draw_slider(50, 500, r_slider, 'Rot', color(255, 0, 0))
-    draw_slider(300, 500, g_slider, 'Gruen', color(0, 255, 0))
-    draw_slider(550, 500, b_slider, 'Blau', color(0, 0, 255))
