@@ -65,3 +65,7 @@ def mouseDragged():
         green_value = constrain(mouseX - slider_x, 0, slider_width)
     elif dragging_blue:
         blue_value = constrain(mouseX - slider_x, 0, slider_width)
+    elif dragging_green:
+        green_value = constrain(mouseX - slider_x, 0, slider_width)
+    elif dragging_blue:
+        blue_value = constrain(mouseX - slider_x, 0, slider_width)
