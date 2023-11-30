@@ -1,5 +1,3 @@
-
-# Diese Funktion wird einmal am Anfang ausgeführt.
 def setup():
     size(800, 600)  # Setze die Größe des Fensters auf 800x600 Pixel.
 
