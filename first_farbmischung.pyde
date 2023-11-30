@@ -1,66 +1,38 @@
-     #Importieren der ControlP5 Bibliothek
-import controlP5.*;
+import tkinter as tk
+from tkinter import Scale, Canvas
 
-ControlP5 cp5;
+def update_color(r, g, b):
+    """Aktualisiert die Farbe basierend auf den RGB-Werten."""
+    color = f"#{int(r):02x}{int(g):02x}{int(b):02x}"  # Konvertiert RGB-Werte in einen Hex-String
+    color_display.config(bg=color)
 
-    #Initialwerte für die Slider Cyan, Magenta, Gelb
-int cyan = 0;
-int magenta = 0;
-int yellow = 0;
+def on_slider_change(_);
+    """Wird aufgerufen, wenn ein Schieberegler verschoben wird."""
+    r = red_slider.get()
+    g = green_slider.get()
+    b = blue_slider.get()
+    update_color(r, g, b)
 
-void setup() {
-  size(600, 400);
-  background(255);
-  
-  #Erstellen der ControlP5-Instanz
-  cp5 = new ControlP5(this);
+# Hauptfenster erstellen
+root = tk.Tk()
+root.title("RGB Farbmischung")
 
-  #Erstellen der Schieberegler für Cyan, Magenta und Gelb
-  cp5.addSlider("cyan")
-     .setPosition(50, 50)
-     .setSize(200, 20)
-     .setRange(0, 255)
-     .setValue(0)
-     .setLabel("Cyan");
-     
-  cp5.addSlider("magenta")
-     .setPosition(50, 100)
-     .setSize(200, 20)
-     .setRange(0, 255)
-     .setValue(0)
-     .setLabel("Magenta");
-     
-  cp5.addSlider("yellow")
-     .setPosition(50, 150)
-     .setSize(200, 20)
-     .setRange(0, 255)
-     .setValue(0)
-     .setLabel("Gelb");
-}
+# Schieberegler für Rot, Grün und Blau
+red_slider = Scale(root, from_=0, to=255, orient="horizontal", label="Rot", fg="red")
+red_slider.pack(fill="x", padx=20, pady=5)
+red_slider.bind("<Motion>", on_slider_change)
 
-void draw() {
-  background(255);
-  
-  #Subtraktive Farbmischung
- #Wir beginnen mit Weiß und ziehen dann die RGB-Werte ab, die den CMY-Werten entsprechen
-  int r = 255 - cyan;
-  int g = 255 - magenta;
-  int b = 255 - yellow;
+green_slider = Scale(root, from_=0, to=255, orient="horizontal", label="Grün", fg="green")
+green_slider.pack(fill="x", padx=20, pady=5)
+green_slider.bind("<Motion>", on_slider_change)
 
-  #Setzen der subtraktiven Farbe als Hintergrund
-  fill(r, g, b);
-  rect(300, 50, 200, 200);
-}
+blue_slider = Scale(root, from_=0, to=255, orient="horizontal", label="Blau", fg="blue")
+blue_slider.pack(fill="x", padx=20, pady=5)
+blue_slider.bind("<Motion>", on_slider_change)
 
-#Diese Funktionen werden aufgerufen, wenn die Schieberegler bewegt werden
-void cyan(int value) {
-  cyan = value;
-}
+# Anzeigebereich für die gemischte Farbe
+color_display = Canvas(root, width=300, height=100)
+color_display.pack(padx=20, pady=20)
+update_color(red_slider.get(), green_slider.get(), blue_slider.get())  # Setzt die anfängliche Farbe
 
-void magenta(int value) {
-  magenta = value;
-}
-
-void yellow(int value) {
-  yellow = value;
-}
+root.mainloop()
