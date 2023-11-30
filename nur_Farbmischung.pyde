@@ -2,7 +2,6 @@
 # Diese Funktion wird einmal am Anfang ausgeführt.
 def setup():
     size(800, 600)  # Setze die Größe des Fensters auf 800x600 Pixel.
-    frameRate(60)  # Aktualisiere 60 Mal pro Sekunde.
 
     # Hier zeichnen wir Quadrate für jede der RGB-Farben.
     stroke(0)  # Setze die Linienfarbe auf Schwarz.
