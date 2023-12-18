@@ -1,0 +1,85 @@
+# Globale Variablen für die RGB-Werte und die Position der Schieberegler
+r_val, g_val, b_val = 255, 255, 255  # Anfangswerte für Rot, Grün und Blau (alle auf Maximum, gibt also Weiss).
+r_slider, g_slider, b_slider = 100, 100, 100  # Anfangspositionen der Schieberegler.
+
+# Diese Funktion wird einmal am Anfang ausgeführt.
+def setup():
+    size(800, 600)  # Setze die Größe des Fensters auf 800x800 Pixel.
+    frameRate(60)  # Es wird 60 Mal pro Sekunde wiederholt.
+
+# Diese Funktion wird mit 60 FPS immer wieder aufgerufen und zeichnet die Inhalte.
+def draw():
+    background(255)  # Setze den Hintergrund auf Weiss sonst wäre es Grau
+
+    # Hier wird der Titel hinzugefügt.
+    fill(0)  # Setze die Füllfarbe auf Schwarz.
+    textSize(32)  # Setze die Schriftgröße auf 32 Pixel.
+    textAlign(CENTER, CENTER)  # Zentriere den Text horizontal und vertikal.
+    text("Additive Farbmischung", width / 2, 50)  # Titelinhalt.
+
+    # Hier zeichnen wir Quadrate für jede der RGB-Farben.
+    stroke(0)  # Setze die Linienfarbe auf Schwarz.
+    
+    # Zeichne ein rotes Quadrat.
+    fill(r_val, 0, 0)  # Hier sind die RGB Farbwerte eingetragen. Rotwert ist variabel
+    rect(250, 150, 200, 200) # Die Grösse des Quadrates
+
+    # Zeichne ein grünes Quadrat.
+    fill(0, g_val, 0) # Hier sind die RGB Farbwerte eingetragen. Grünwert ist variabel
+    rect(350, 150, 200, 200) # Die Grösse des Quadrates
+
+    # Zeichne ein blaues Quadrat. 
+    fill(0, 0, b_val) # Hier sind die RGB Farbwerte eingetragen. Blauwert ist variabel
+    rect(300, 250, 200, 200)# Die Grösse des Quadrates
+
+    # Hier werden die Farbüberschneidungen gezeigt, die überschneidendnen Farben sind variabel.
+    # Rot und Grün überschneiden sich.
+    fill(r_val, g_val, 0) # die überschneidendnen Farben Rot und grün sind variabel.
+    rect(350, 150, 100, 200) # Die Position und Grösse des Quadrates
+
+    # Rot und Blau überschneiden sich.
+    fill(r_val, 0, b_val) # die überschneidendnen Farben Rot und blau sind variabel.
+    rect(300, 250, 150, 100) # Die Position und Grösse des Quadrates
+
+    # Grün und Blau überschneiden sich.
+    fill(0, g_val, b_val) # die überschneidendnen Farben grün und blau sind variabel.
+    rect(350, 250, 150, 100) # Die Position und Grösse des Quadrates
+
+    # Alle drei Farben überschneiden sich.
+    fill(r_val, g_val, b_val) # alle variabel gewählten Farben.
+    rect(350, 250, 100, 100)# Die Position und Grösse des Quadrates
+
+    # Hier zeichnen wir die Schieberegler.
+    draw_slider(50, 500, r_slider, 'Rot', color(255, 0, 0)) # Das haben wir in einem Forum gefunden, Die Farben .
+    draw_slider(300, 500, g_slider, 'Gruen', color(0, 255, 0))
+    draw_slider(550, 500, b_slider, 'Blau', color(0, 0, 255))
+
+# Diese Funktion zeichnet einen Schieberegler.
+def draw_slider(x, y, position, label, col):
+    # Zeichne die Linie des Schiebreglers.
+    stroke(0)
+    line(x, y, x + 200, y)
+    # Zeichnet den Schieberegler-Knopf.
+    fill(col)
+    ellipse(x + position, y, 20, 20)
+    # Zeigt den Text für den Schiebregler.
+    fill(0)
+    text(label, x + 90, y - 40)
+
+# Diese Funktion wird aufgerufen, wenn die Maus gezogen wird.
+def mouseDragged():
+    global r_slider, g_slider, b_slider  # Postitonswerte.
+    global r_val, g_val, b_val  # variable Farbwerte wenn nicht unveränderlich.
+
+    # Bestimmen wenn die Maus über einem slider ist.
+    if 480 < mouseY < 520: # wenn es generell in diesem Y Bereich ist ohne Differenzierung von Farben.
+        # die X Position bestimmt welche Farbe die Maus wählt so wird das R G oder B differenziert das System wurde in einem Forum entdeckt und wurde für die 3 Regler angepasst.
+        if 50 <= mouseX <= 250: # x Postition vom roten Slider.
+            r_slider = constrain(mouseX - 50, 0, 200)
+            r_val = map(r_slider, 0, 200, 0, 255)
+        elif 300 <= mouseX <= 500: # x Postition vom grünen Slider.
+            g_slider = constrain(mouseX - 300, 0, 200)
+            g_val = map(g_slider, 0, 200, 0, 255)
+        elif 550 <= mouseX <= 750:# x Postition vom blauen Slider.
+            b_slider = constrain(mouseX - 550, 0, 200)
+            b_val = map(b_slider, 0, 200, 0, 255)
